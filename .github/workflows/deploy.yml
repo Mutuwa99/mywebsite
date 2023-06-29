@@ -41,8 +41,14 @@ jobs:
 
       - name: Deploy to Production Environment
         run: |
-          # Change to the appropriate directory on the remote server
-          sudo cd /var/www/html
+      - name: Adjust permissions on target directory
+        run: sudo chmod -R 755 /var/www/html
 
-          # Exclude 'deploy' directory using rsync
-          rsync -av --exclude='deploy' $GITHUB_WORKSPACE/ .
+      - name: Deploy to Production Environment
+        run: |
+          # Change to the appropriate directory on the remote server
+          cd /var/www/html
+
+          # Copy the application files from the GitHub Actions workspace to the remote server
+          cp -r $GITHUB_WORKSPACE/* .
+
