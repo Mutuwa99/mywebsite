@@ -12,18 +12,23 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Add necessary steps for manual approval
-      # For example, displaying a message or waiting for user input
-
       - name: Verify Approver
         id: verify_approver
         run: echo "::set-output name=approved::${{ github.actor == 'mutuwa99' }}"
+
+      - name: Manual Approval
+        if: steps.verify_approver.outputs.approved == 'false'
+        run: |
+          echo "Manual approval required. Please approve or reject this deployment."
+          echo "To approve, add a comment on the associated issue: ${{ github.event.issue.html_url }}"
+          echo "To reject, add a comment starting with 'Reject' on the associated issue: ${{ github.event.issue.html_url }}"
+          exit 1
 
   deploy-production:
     name: Deploy to Production Environment
     runs-on: ubuntu-latest
     needs: manual-approval
-    # if: github.ref == 'refs/heads/master' && needs.manual-approval.outputs.approved == 'true'
+    if: github.ref == 'refs/heads/master' && needs.manual-approval.outputs.approved == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
