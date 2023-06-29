@@ -47,8 +47,10 @@ jobs:
       - name: Deploy to Production Environment
         run: |
           # Change to the appropriate directory on the remote server
+          sudo su
           cd /var/www/html
 
           # Copy the application files from the GitHub Actions workspace to the remote server
+          sudo su
           cp -r $GITHUB_WORKSPACE/* .
 
