@@ -28,23 +28,19 @@ jobs:
     name: Deploy to Production Environment
     runs-on: ubuntu-latest
     needs: manual-approval
-#     if: github.ref == 'refs/heads/master' && needs.manual-approval.outputs.approved == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # Add necessary steps to build and prepare your application for deployment
-
-      - name: Deploy to Production Environment
+      - name: Set up SSH key
         uses: webfactory/ssh-agent@v0.5.1
         with:
-          host: ${{ secrets.SERVER_IP_ADDRESS }}
-          username: ${{ secrets.SERVER_USERNAME }}
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-          script: |
-            # Change to the appropriate directory on the remote server
-            sudo su
-            cd /var/www/html
 
-            # Copy the application files from the GitHub Actions workspace to the remote server
-            cp -r $GITHUB_WORKSPACE/* .
+      - name: Deploy to Production Environment
+        run: |
+          # Change to the appropriate directory on the remote server
+          cd /var/www/html
+
+          # Copy the application files from the GitHub Actions workspace to the remote server
+          cp -r $GITHUB_WORKSPACE/* .
