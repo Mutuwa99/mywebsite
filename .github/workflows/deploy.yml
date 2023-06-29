@@ -42,7 +42,7 @@ jobs:
       - name: Deploy to Production Environment
         run: |
           # Change to the appropriate directory on the remote server
-          cd /var/www/html
+          sudo cd /var/www/html
 
           # Exclude 'deploy' directory using rsync
           rsync -av --exclude='deploy' $GITHUB_WORKSPACE/ .
