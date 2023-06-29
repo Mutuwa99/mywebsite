@@ -20,5 +20,5 @@ jobs:
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_IP_ADDRES }}
-          REMOTE_USER: ${{ secrets.SERVER_USERNAME }}
+          REMOTE_USER: ${{ secrets.USER }}
           TARGET: ${{ secrets.TARGET_DIR }}
