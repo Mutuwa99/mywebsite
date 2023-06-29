@@ -17,7 +17,10 @@ jobs:
 
       - name: Verify Approver
         id: verify_approver
-        run: echo "::set-output name=approved::${{ github.actor == 'mutuwa99' }}"
+        run: |
+          echo "Please review and approve or reject this deployment."
+          echo "To approve, comment '/approve'."
+          echo "To reject, comment '/reject'."
 
   deploy-production:
     name: Deploy to Production Environment
