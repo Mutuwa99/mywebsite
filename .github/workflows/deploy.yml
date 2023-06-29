@@ -39,12 +39,13 @@ jobs:
 
       - name: Adjust permissions on target directory
         run: |
-          ssh ec2-user@${{ secrets.SERVER_IP_ADDRESS }} "sudo chown -R ec2-user:ec2-user /var/www/html && sudo chmod -R 755 /var/www/html"
+          ssh ec2-user@50.17.57.13 "sudo chown -R ec2-user:ec2-user /var/www/html && sudo chmod -R 755 /var/www/html"
 
       - name: Copy application files to the remote server
         run: |
           # Copy the application files from the GitHub Actions workspace to the remote server
-          scp -r $GITHUB_WORKSPACE/* ec2-user@${{ secrets.SERVER_IP_ADDRESS }}:/var/www/html/
+          scp -r $GITHUB_WORKSPACE/* ec2-user@50.17.57.13:/var/www/html/
+
 
 
 
