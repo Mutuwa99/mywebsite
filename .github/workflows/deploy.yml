@@ -43,6 +43,7 @@ jobs:
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
           script: |
             # Change to the appropriate directory on the remote server
+            sudo su
             cd /var/www/html
 
             # Copy the application files from the GitHub Actions workspace to the remote server
