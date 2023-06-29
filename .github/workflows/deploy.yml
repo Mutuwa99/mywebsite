@@ -40,7 +40,7 @@ jobs:
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
           
       - name: Adjust permissions on target directory
-        run: sudo chown -R ec2-user:ec2-user /var/www/html && sudo chmod -R 755 /var/www/html
+        run: sudo chown -R 1000:1000 /var/www/html && sudo chmod -R 755 /var/www/html
 
       - name: Copy application files to the remote server
         run: |
@@ -49,4 +49,5 @@ jobs:
 
           # Copy the application files from the GitHub Actions workspace to the remote server
           sudo cp -r $GITHUB_WORKSPACE/* .
+
 
