@@ -46,4 +46,8 @@ jobs:
             cd /var/www/html
 
             # Copy the application files from the GitHub Actions workspace to the remote server
+<<<<<<< HEAD
             cp -r $GITHUB_WORKSPACE/* .
+=======
+            cp -r $GITHUB_WORKSPACE/* .
+>>>>>>> a8c528360dbeb21d2f7eb3de32a9613f590d0be1
