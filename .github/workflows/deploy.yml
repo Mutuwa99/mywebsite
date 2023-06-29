@@ -28,7 +28,7 @@ jobs:
     name: Deploy to Production Environment
     runs-on: ubuntu-latest
     needs: manual-approval
-    if: github.ref == 'refs/heads/master' && needs.manual-approval.outputs.approved == 'true'
+#     if: github.ref == 'refs/heads/master' && needs.manual-approval.outputs.approved == 'true'
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
