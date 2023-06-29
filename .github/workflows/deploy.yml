@@ -21,4 +21,4 @@ jobs:
           SSH_PRIVATE_KEY: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
           REMOTE_HOST: ${{ secrets.SERVER_IP_ADDRES }}
           REMOTE_USER: ${{ secrets.USER }}
-          TARGET: ${{ secrets.TARGET_DIR }}
+          TARGET: /var/www/html
