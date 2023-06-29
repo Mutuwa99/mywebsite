@@ -41,22 +41,23 @@ jobs:
 
       - name: Deploy to Production Environment
         run: |
-          # Create a temporary directory for deployment
+          # Create a temporary deployment directory
           mkdir deploy
           cd deploy
 
-          # Copy the application files from the GitHub Actions workspace to the deployment directory
-          cp -r $GITHUB_WORKSPACE/* .
+          # Copy all files and directories except 'deploy' directory to the deployment directory
+          shopt -s extglob
+          cp -r !(deploy) ../deploy
 
-          # Exclude the 'deploy' directory from the copy operation
-          rm -rf deploy
-
+      - name: Deploy to Production Environment
+        run: |
           # Change to the appropriate directory on the remote server
           cd /var/www/html
 
           # Copy the application files from the deployment directory to the remote server
-          cp -r ../deploy/* .
+          cp -r $GITHUB_WORKSPACE/deploy/* .
 
-          # Clean up the temporary deployment directory
-          cd ..
-          rm -rf deploy
+      - name: Clean up Deployment Directory
+        run: |
+          # Remove the temporary deployment directory
+          rm -rf $GITHUB_WORKSPACE/deploy
