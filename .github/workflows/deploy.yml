@@ -39,8 +39,19 @@ jobs:
 
       - name: Deploy to Production Environment
         run: |
-          # Change to the appropriate directory on the remote server
-          sudo cp -r $GITHUB_WORKSPACE/* .
+          # Create a temporary directory for deployment
+          mkdir deploy
+          cd deploy
 
-          # Copy the application files from the GitHub Actions workspace to the remote server
+          # Copy the application files from the GitHub Actions workspace to the deployment directory
           cp -r $GITHUB_WORKSPACE/* .
+
+          # Change to the appropriate directory on the remote server
+          cd /var/www/html
+
+          # Copy the application files from the deployment directory to the remote server
+          cp -r ../deploy/* .
+
+          # Clean up the temporary deployment directory
+          cd ..
+          rm -rf deploy
