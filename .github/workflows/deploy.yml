@@ -23,7 +23,6 @@ jobs:
           echo "To approve, add a comment on the associated issue: ${{ github.event.issue.html_url }}"
           echo "To reject, add a comment starting with 'Reject' on the associated issue: ${{ github.event.issue.html_url }}"
           exit 1
-
   deploy-production:
     name: Deploy to Production Environment
     runs-on: ubuntu-latest
@@ -31,25 +30,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-        
+
       - name: Set up SSH key
         uses: webfactory/ssh-agent@v0.5.1
         with:
+          host: ${{ secrets.SERVER_IP_ADDRESS }}
+          username: ${{ secrets.USER }}
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-
+          
       - name: Adjust permissions on target directory
-        run: |
-          ssh ec2-user@${{ secrets.SERVER_IP_ADDRESS }} "sudo chown -R ec2-user:ec2-user /var/www/html && sudo chmod -R 755 /var/www/html"
+        run: sudo chown -R 1000:1000 /var/www/html && sudo chmod -R 755 /var/www/html
 
       - name: Copy application files to the remote server
         run: |
           # Change to the appropriate directory on the remote server
-          ssh ec2-user@${{ secrets.SERVER_IP_ADDRESS }} "cd /var/www/html"
-
+          cd /var/www/html
           # Copy the application files from the GitHub Actions workspace to the remote server
-          scp -r $GITHUB_WORKSPACE/* ec2-user@${{ secrets.SERVER_IP_ADDRESS }}:/var/www/html/
-
-
-
-
-
+          sudo cp -r $GITHUB_WORKSPACE/* .
