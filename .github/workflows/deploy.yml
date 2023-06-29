@@ -48,12 +48,14 @@ jobs:
               core.setOutput('approved', 'false');
             }
 
-          await github.reactions.createForIssueComment({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            comment_id: approvalComment.id,
-            content: 'rocket' // You can use any GitHub reaction emoji here
-          });
+            if (approvalComment) {
+              await github.reactions.createForIssueComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: approvalComment.id,
+                content: 'rocket' // You can use any GitHub reaction emoji here
+              });
+            }
 
   deploy-production:
     name: Deploy to Production Environment
