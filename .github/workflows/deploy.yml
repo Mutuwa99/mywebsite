@@ -46,6 +46,9 @@ jobs:
           # Copy the application files from the GitHub Actions workspace to the deployment directory
           cp -r $GITHUB_WORKSPACE/* .
 
+          # Exclude the 'deploy' directory from the copy operation
+          rm -rf deploy
+
           # Change to the appropriate directory on the remote server
           cd /var/www/html
 
