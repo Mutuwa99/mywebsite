@@ -39,18 +39,13 @@ jobs:
           username: ${{ secrets.SERVER_USERNAME }}
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
 
-      - name: Deploy to Production Environment
-        run: |
       - name: Adjust permissions on target directory
         run: sudo chmod -R 755 /var/www/html
 
-      - name: Deploy to Production Environment
+      - name: Copy application files to the remote server
         run: |
           # Change to the appropriate directory on the remote server
-          sudo su
           cd /var/www/html
 
           # Copy the application files from the GitHub Actions workspace to the remote server
-          sudo su
           cp -r $GITHUB_WORKSPACE/* .
-
