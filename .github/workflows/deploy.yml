@@ -17,7 +17,7 @@ jobs:
 
       - name: Verify Approver
         id: verify_approver
-        run: echo "::set-output name=approved::${{ github.actor == 'isayamulaudzi' }}"
+        run: echo "::set-output name=approved::${{ github.actor == 'mutuwa99' }}"
 
   deploy-production:
     name: Deploy to Production Environment
