@@ -6,7 +6,18 @@ on:
       - master
 
 jobs:
+  manual_approval:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Manual approval
+        id: approval
+        uses: "Azure/approvals@v1"
+        with:
+          message: "Approve the deployment"
+          onetime: true
   deploy:
+    needs: manual_approval
+    if: needs.manual_approval.result == 'success'
     runs-on: ubuntu-latest
 
     steps:
