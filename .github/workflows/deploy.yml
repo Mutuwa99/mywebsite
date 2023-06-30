@@ -11,12 +11,12 @@ jobs:
     steps:
       - name: Manual approval
         id: approval
-        uses: "actions/checkout@v2"
+        uses: "appleboy/approve@v0.1.0"
         with:
-          message: "Approve the deployment"
-          onetime: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          request_comment: "Approve the deployment (Reply with 'approve' or 'reject')"
   deploy:
-    needs: manual_approval
+        needs: manual_approval
     if: needs.manual_approval.result == 'success'
     runs-on: ubuntu-latest
 
