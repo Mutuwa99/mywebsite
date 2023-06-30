@@ -18,18 +18,6 @@ jobs:
           echo "Approve the deployment (Comment with 'approve' or 'reject')"
           echo "::set-output name=approval_status::pending"
 
-  send_approval_notification:
-    needs: manual_approval
-    runs-on: ubuntu-latest
-    steps:
-      - name: Send approval notification
-        run: |
-          PR_NUMBER=$(jq --raw-output .pull_request.number "${GITHUB_EVENT_PATH}")
-          COMMENT="Please approve or reject the deployment by commenting on this pull request with 'approve' or 'reject'."
-          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments"
-          RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"body\":\"$COMMENT\"}" "$API_URL")
-          COMMENT_ID=$(echo "$RESPONSE" | jq --raw-output .id)
-          echo "::set-output name=comment_id::$COMMENT_ID
 
   deploy:
     needs: send_approval_notification
