@@ -43,6 +43,19 @@ jobs:
       - name: SSH into EC2
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/html"
 
+  qa_send_notification:
+    needs: deploy_to_qa
+    if: needs.deploy_to_qa.result == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to repository owner
+        run: |
+          REPO_OWNER=$(jq --raw-output .repository.owner.login "${GITHUB_EVENT_PATH}")
+          NOTIFICATION="Deployment qa completed."
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/notifications"
+          RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"subject\":\"$NOTIFICATION\",\"repository\":\"$REPO_OWNER/$GITHUB_REPOSITORY\"}" "$API_URL")
+          echo "Notification sent to repository owner: $REPO_OWNER"         
+
   deploy_to_prod:
     if: github.ref == 'refs/heads/production'
     runs-on: ubuntu-latest
@@ -52,7 +65,7 @@ jobs:
           echo "Notification sent to repository owner: $REPO_OWNER"
     
   
-  send_notification:
+  production_send_notification:
     needs: deploy_to_prod
     if: needs.deploy_to_prod.result == 'success'
     runs-on: ubuntu-latest
@@ -60,7 +73,7 @@ jobs:
       - name: Send notification to repository owner
         run: |
           REPO_OWNER=$(jq --raw-output .repository.owner.login "${GITHUB_EVENT_PATH}")
-          NOTIFICATION="Deployment to EC2 completed."
+          NOTIFICATION="Deployment to prod completed."
           API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/notifications"
           RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"subject\":\"$NOTIFICATION\",\"repository\":\"$REPO_OWNER/$GITHUB_REPOSITORY\"}" "$API_URL")
           echo "Notification sent to repository owner: $REPO_OWNER"    
