@@ -11,12 +11,12 @@ jobs:
     steps:
       - name: Manual approval
         id: approval
-        uses: "webfactory/ssh-agent@v0.5.0"
+        uses: "Azure/approvals@v1"
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          request_comment: "Approve the deployment (Reply with 'approve' or 'reject')"
+          message: "Approve the deployment"
+          onetime: true
   deploy:
-        needs: manual_approval
+    needs: manual_approval
     if: needs.manual_approval.result == 'success'
     runs-on: ubuntu-latest
 
