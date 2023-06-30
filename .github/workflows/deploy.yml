@@ -13,8 +13,8 @@ jobs:
         id: approval
         uses: "actions/checkout@v2"
         with:
-          message: "Approve the deployment"
-          onetime: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          request_comment: "Approve the deployment (Reply with 'approve' or 'reject')"
   deploy:
     needs: manual_approval
     if: needs.manual_approval.result == 'success'
