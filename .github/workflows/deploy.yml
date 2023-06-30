@@ -17,11 +17,24 @@ jobs:
         run: |
           echo "Approve the deployment (Reply with 'approve' or 'reject')"
 
-          # Retrieve the approval status from the email response
-          status=$(curl -s -X POST -H "Content-Type: application/json" \
+          # Send approval request email
+          response=$(curl -s -X POST -H "Content-Type: application/json" \
                       -H "Authorization: Bearer ${{ secrets.SENDGRID_API_KEY }}" \
-                      -d '{"personalizations": [{"to": [{"email": "isayamulaudzi@gmail.com"}]}],"from": {"email": "noreply@yourdomain.com"},"subject": "Deployment Approval","content": [{"type": "text/plain", "value": "Please approve or reject the deployment by replying to this email with 'approve' or 'reject'."}],"mail_settings": {"sandbox_mode": {"enable": true}}} ' \
-                      "https://api.sendgrid.com/v3/mail/send" | jq -r '.[0].status')
+                      -d '{
+                            "personalizations": [
+                              {"to": [{"email": "isayamulaudzi@gmail.com"}]}
+                            ],
+                            "from": {"email": "noreply@yourdomain.com"},
+                            "subject": "Deployment Approval",
+                            "content": [
+                              {"type": "text/plain", "value": "Please approve or reject the deployment by replying to this email with 'approve' or 'reject'."}
+                            ],
+                            "mail_settings": {"sandbox_mode": {"enable": true}}
+                          }' \
+                      "https://api.sendgrid.com/v3/mail/send")
+
+          # Check if the email was sent successfully
+          status=$(echo "$response" | grep -o '"status": *[^,}]*' | awk -F':' '{print $2}' | tr -d '[:space:]')
 
           if [[ $status == "202" ]]; then
             echo "::set-output name=approval_status::pending"
@@ -44,12 +57,12 @@ jobs:
           subject: Deployment Approval
           to: isayamulaudzi@gmail.com
           from: noreply@yourdomain.com
-          body: Please approve or reject the deployment by replying to this email with 'approve' or 'reject'.          
+          body: Please approve or reject the deployment by replying to this email with 'approve' or 'reject'.         
           
 
 
   deploy:
-    needs: manual_approval
+    needs: send_approval_email
     if: needs.send_approval_email.outputs.status == 'success'
     runs-on: ubuntu-latest
 
