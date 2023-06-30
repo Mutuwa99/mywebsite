@@ -16,24 +16,41 @@ jobs:
         id: approval
         run: |
           echo "Approve the deployment (Reply with 'approve' or 'reject')"
-          echo "APPROVAL_STATUS=pending" >> $GITHUB_ENV
 
-          while read -r comment; do
-            if [[ $comment == "approve" ]]; then
-              echo "APPROVAL_STATUS=approved" >> $GITHUB_ENV
-              break
-            elif [[ $comment == "reject" ]]; then
-              echo "APPROVAL_STATUS=rejected" >> $GITHUB_ENV
-              break
-            fi
-          done < <(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-                      -H "Accept: application/vnd.github.v3+json" \
-                      "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" | jq -r '.[].body')
+          # Retrieve the approval status from the email response
+          status=$(curl -s -X POST -H "Content-Type: application/json" \
+                      -H "Authorization: Bearer ${{ secrets.SENDGRID_API_KEY }}" \
+                      -d '{"personalizations": [{"to": [{"email": "isayamulaudzi@gmail.com"}]}],"from": {"email": "noreply@yourdomain.com"},"subject": "Deployment Approval","content": [{"type": "text/plain", "value": "Please approve or reject the deployment by replying to this email with 'approve' or 'reject'."}],"mail_settings": {"sandbox_mode": {"enable": true}}} ' \
+                      "https://api.sendgrid.com/v3/mail/send" | jq -r '.[0].status')
+
+          if [[ $status == "202" ]]; then
+            echo "::set-output name=approval_status::pending"
+          else
+            echo "::set-output name=approval_status::rejected"
+          fi
+
+  send_approval_email:
+    needs: manual_approval
+    runs-on: ubuntu-latest
+    if: needs.manual_approval.outputs.approval_status == 'pending'
+    steps:
+      - name: Send approval email
+        uses: dawidd6/action-send-email@v2
+        with:
+          server_address: smtp.sendgrid.net
+          server_port: 587
+          username: apikey
+          password: ${{ secrets.SENDGRID_API_KEY }}
+          subject: Deployment Approval
+          to: isayamulaudzi@gmail.com
+          from: noreply@yourdomain.com
+          body: Please approve or reject the deployment by replying to this email with 'approve' or 'reject'.          
+          
 
 
   deploy:
     needs: manual_approval
-    if: needs.manual_approval.outputs.approval_status == 'approved'
+    if: needs.send_approval_email.outputs.status == 'success'
     runs-on: ubuntu-latest
 
     steps:
