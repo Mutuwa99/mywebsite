@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Manual approval
         id: approval
-        uses: "appleboy/approve@v0.1.0"
+        uses: "webfactory/ssh-agent@v0.5.0"
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           request_comment: "Approve the deployment (Reply with 'approve' or 'reject')"
