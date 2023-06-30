@@ -24,32 +24,18 @@ jobs:
     if: needs.manual_approval.outputs.approval_status == 'pending'
     steps:
       - name: Send approval notification
-        uses: actions/github-script@v5
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const approvalComment = "Please approve or reject the deployment by commenting on this pull request with 'approve' or 'reject'.";
-            const context = github.context;
-            const owner = context.repo.owner;
-            const repo = context.repo.repo;
-            const pullRequestNumber = context.payload.pull_request.number;
-            const issueCommentsEndpoint = `GET /repos/${owner}/${repo}/issues/${pullRequestNumber}/comments`;
-            const createCommentEndpoint = `POST /repos/${owner}/${repo}/issues/${pullRequestNumber}/comments`;
-            const { data: comments } = await github.request(issueCommentsEndpoint);
-            const existingComment = comments.find(comment => comment.user.login === "github-actions[bot]" && comment.body.includes(approvalComment));
-            if (existingComment) {
-              console.log("Approval comment already exists.");
-            } else {
-              await github.request(createCommentEndpoint, {
-                body: approvalComment
-              });
-              console.log("Approval comment created.");
-            }
-            console.log("::set-output name=status::success");
+        run: |
+          PR_NUMBER=$(jq --raw-output .pull_request.number "${GITHUB_EVENT_PATH}")
+          COMMENT="Please approve or reject the deployment by commenting on this pull request with 'approve' or 'reject'."
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments"
+          RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"body\":\"$COMMENT\"}" "$API_URL")
+          COMMENT_ID=$(echo "$RESPONSE" | jq --raw-output .id)
+          echo "::set-output name=comment_id::$COMMENT_ID
 
   deploy:
     needs: send_approval_notification
-    if: needs.send_approval_notification.outputs.status == 'success'
+    if: needs.send_approval_notification.outputs.comment_id != ''
+
     runs-on: ubuntu-latest
 
     steps:
