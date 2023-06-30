@@ -54,7 +54,7 @@ jobs:
   
   send_notification:
     needs: deploy_to_prod
-    if: always()
+    if: needs.deploy_to_prod.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - name: Send notification to repository owner
