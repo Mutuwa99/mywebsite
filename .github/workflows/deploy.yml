@@ -9,15 +9,31 @@ jobs:
   manual_approval:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Manual approval
         id: approval
-        uses: "actions/checkout@v2"
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          request_comment: "Approve the deployment (Reply with 'approve' or 'reject')"
+        run: |
+          echo "Approve the deployment (Reply with 'approve' or 'reject')"
+          echo "::set-output name=approval_status::pending"
+
+          while read -r comment; do
+            if [[ $comment == "approve" ]]; then
+              echo "::set-output name=approval_status::approved"
+              break
+            elif [[ $comment == "reject" ]]; then
+              echo "::set-output name=approval_status::rejected"
+              break
+            fi
+          done < <(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+                      -H "Accept: application/vnd.github.v3+json" \
+                      "https://api.github.com/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments" | jq -r '.[].body')
+
+
   deploy:
     needs: manual_approval
-    if: needs.manual_approval.result == 'success'
+    if: needs.manual_approval.outputs.approval_status == 'approved'
     runs-on: ubuntu-latest
 
     steps:
