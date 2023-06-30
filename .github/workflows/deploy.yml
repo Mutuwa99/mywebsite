@@ -16,14 +16,14 @@ jobs:
         id: approval
         run: |
           echo "Approve the deployment (Reply with 'approve' or 'reject')"
-          echo "::set-output name=approval_status::pending"
+          echo "APPROVAL_STATUS=pending" >> $GITHUB_ENV
 
           while read -r comment; do
             if [[ $comment == "approve" ]]; then
-              echo "::set-output name=approval_status::approved"
+              echo "APPROVAL_STATUS=approved" >> $GITHUB_ENV
               break
             elif [[ $comment == "reject" ]]; then
-              echo "::set-output name=approval_status::rejected"
+              echo "APPROVAL_STATUS=rejected" >> $GITHUB_ENV
               break
             fi
           done < <(curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
