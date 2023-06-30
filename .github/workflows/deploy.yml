@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Manual approval
         id: approval
-        uses: "Azure/approvals@v1"
+        uses: "actions/checkout@v2"
         with:
           message: "Approve the deployment"
           onetime: true
