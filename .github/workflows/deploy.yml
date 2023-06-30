@@ -44,9 +44,8 @@ jobs:
                 body: approvalComment
               });
               console.log("Approval comment created.");
-            }      
-          
-
+            }
+            console.log("::set-output name=status::success");
 
   deploy:
     needs: send_approval_notification
