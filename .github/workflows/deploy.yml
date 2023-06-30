@@ -24,7 +24,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DEPLOY_ENV: QA-mywebsite
-      url: http://noblemulaudzi.com
 
     steps:
       - name: Checkout code
