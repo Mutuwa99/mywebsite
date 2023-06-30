@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: 
       name: QA-mywebsite
-      url: http:noble-mutuwa.com
+      url: http://noble-mutuwa.com/
 
     steps:
       - name: Checkout code
