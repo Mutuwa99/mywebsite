@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - master
+      - production 
 
 jobs:
   manual_approval:
@@ -19,7 +20,7 @@ jobs:
           echo "::set-output name=approval_status::pending"
 
 
-  deploy:
+  deploy_to_qa:
     needs: manual_approval
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
@@ -41,10 +42,19 @@ jobs:
 
       - name: SSH into EC2
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/html"
+
+  deploy_to_prod:
+    needs: deploy_to_qa
+    if: github.ref == 'refs/heads/production'
+    runs-on: ubuntu-latest
+    steps:
+      - name: deploy tp prod
+        run: |
+          echo "Notification sent to repository owner: $REPO_OWNER"
     
   
   send_notification:
-    needs: deploy
+    needs: deploy_to_prod
     if: always()
     runs-on: ubuntu-latest
     steps:
