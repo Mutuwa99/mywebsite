@@ -15,34 +15,42 @@ jobs:
       - name: Manual approval
         id: approval
         run: |
-          echo "Approve the deployment (Reply with 'approve' or 'reject')"
-
-          # Set the approval status as pending
+          echo "Approve the deployment (Comment with 'approve' or 'reject')"
           echo "::set-output name=approval_status::pending"
 
-  send_approval_email:
+  send_approval_notification:
     needs: manual_approval
     runs-on: ubuntu-latest
     if: needs.manual_approval.outputs.approval_status == 'pending'
     steps:
-      - name: Send approval email
-        uses: dawidd6/action-send-email@v2
+      - name: Send approval notification
+        uses: actions/github-script@v5
         with:
-          server_address: smtp.sendgrid.net
-          server_port: 587
-          username: apikey
-          password: ${{ secrets.SENDGRID_API_KEY }}
-          subject: Deployment Approval
-          to: isayamulaudzi@gmail.com
-          from: noreply@yourdomain.com
-          body: |
-            Please approve or reject the deployment by replying to this email with 'approve' or 'reject'.         
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const approvalComment = "Please approve or reject the deployment by commenting on this pull request with 'approve' or 'reject'.";
+            const context = github.context;
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const pullRequestNumber = context.payload.pull_request.number;
+            const issueCommentsEndpoint = `GET /repos/${owner}/${repo}/issues/${pullRequestNumber}/comments`;
+            const createCommentEndpoint = `POST /repos/${owner}/${repo}/issues/${pullRequestNumber}/comments`;
+            const { data: comments } = await github.request(issueCommentsEndpoint);
+            const existingComment = comments.find(comment => comment.user.login === "github-actions[bot]" && comment.body.includes(approvalComment));
+            if (existingComment) {
+              console.log("Approval comment already exists.");
+            } else {
+              await github.request(createCommentEndpoint, {
+                body: approvalComment
+              });
+              console.log("Approval comment created.");
+            }      
           
 
 
   deploy:
-    needs: send_approval_email
-    if: needs.send_approval_email.outputs.status == 'success'
+    needs: send_approval_notification
+    if: needs.send_approval_notification.outputs.status == 'success'
     runs-on: ubuntu-latest
 
     steps:
