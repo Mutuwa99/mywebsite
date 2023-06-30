@@ -19,14 +19,7 @@ jobs:
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
 
       - name: Copy files to EC2
-<<<<<<< HEAD
         run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${{ github.workspace }}/" ec2-user@50.17.57.13:~/website/*
 
       - name: SSH into EC2
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/* /var/www/html"
-=======
-        run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${{ github.workspace }}/" ec2-user@50.17.57.13:~/website/
-
-      - name: SSH into EC2
-        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/* /var/www/html"
->>>>>>> 0fe69e8e01a5869785281e04fe1e3b6692fb1fd7
