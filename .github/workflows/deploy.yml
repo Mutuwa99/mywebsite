@@ -38,72 +38,16 @@ jobs:
       - name: SSH into EC2
         run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/html"
     
-To send a notification to the owner of the repository after the deployment, you can use the GitHub API to create a comment on the repository's issue tracker or create a GitHub notification. Here's an example of how you can modify the workflow to send a notification to the repository owner:
-
-  yaml
-  Copy code
-  name: Deploy to EC2
   
-  on:
-    push:
-      branches:
-        - master
-  
-  jobs:
-    manual_approval:
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-  
-        - name: Manual approval
-          id: approval
-          run: |
-            echo "Approve the deployment (Comment with 'approve' or 'reject')"
-            echo "::set-output name=approval_status::pending"
-  
-    send_approval_notification:
-      needs: manual_approval
-      runs-on: ubuntu-latest
-      if: needs.manual_approval.outputs.approval_status == 'pending'
-      steps:
-        - name: Send approval notification
-          run: |
-            PR_NUMBER=$(jq --raw-output .pull_request.number "${GITHUB_EVENT_PATH}")
-            COMMENT="Please approve or reject the deployment by commenting on this pull request with 'approve' or 'reject'."
-            API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/issues/${PR_NUMBER}/comments"
-            RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"body\":\"$COMMENT\"}" "$API_URL")
-            COMMENT_ID=$(echo "$RESPONSE" | jq --raw-output .id)
-            echo "::set-output name=comment_id::$COMMENT_ID"
-  
-    deploy:
-      needs: send_approval_notification
-      if: needs.send_approval_notification.outputs.comment_id != ''
-      runs-on: ubuntu-latest
-      steps:
-        - name: Checkout code
-          uses: actions/checkout@v2
-  
-        - name: Set up SSH
-          uses: webfactory/ssh-agent@v0.5.0
-          with:
-            ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
-  
-        - name: Copy files to EC2
-          run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${{ github.workspace }}" ec2-user@50.17.57.13:~/website/
-  
-        - name: SSH into EC2
-          run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/html"
-  
-    send_notification:
-      needs: deploy
-      if: always()
-      runs-on: ubuntu-latest
-      steps:
-        - name: Send notification to repository owner
-          run: |
-            REPO_OWNER=$(jq --raw-output .repository.owner.login "${GITHUB_EVENT_PATH}")
-            NOTIFICATION="Deployment to EC2 completed."
-            API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/notifications"
-            RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"subject\":\"$NOTIFICATION\",\"repository\":\"$REPO_OWNER/$GITHUB_REPOSITORY\"}" "$API_URL")
-            echo "Notification sent to repository owner: $REPO_OWNER"    
+  send_notification:
+    needs: deploy
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send notification to repository owner
+        run: |
+          REPO_OWNER=$(jq --raw-output .repository.owner.login "${GITHUB_EVENT_PATH}")
+          NOTIFICATION="Deployment to EC2 completed."
+          API_URL="https://api.github.com/repos/${GITHUB_REPOSITORY}/notifications"
+          RESPONSE=$(curl -sSL -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" -H "Content-Type: application/json" -X POST -d "{\"subject\":\"$NOTIFICATION\",\"repository\":\"$REPO_OWNER/$GITHUB_REPOSITORY\"}" "$API_URL")
+          echo "Notification sent to repository owner: $REPO_OWNER"    
