@@ -6,54 +6,56 @@
 </head>
 <body>
   <div id="chat-container">
-    <div id="chat-log">
-      <?php
-      if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $message = $_POST['message'];
-
-        // Display user message in the chat log
-        echo '<div class="user">' . $message . '</div>';
-
-        // Make API call to ChatGPT
-        $apiKey = 'YOUR_API_KEY';  // Replace with your actual API key
-        $url = 'https://api.openai.com/v1/chat/completions';
-        $headers = array(
-          'Content-Type: application/json',
-          'Authorization: Bearer ' . $apiKey
-        );
-
-        $data = array(
-          'messages' => array(
-            array('role' => 'system', 'content' => 'You are a helpful assistant.'),
-            array('role' => 'user', 'content' => $message)
-          )
-        );
-
-        $ch = curl_init($url);
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($ch);
-        curl_close($ch);
-
-        $result = json_decode($response, true);
-
-        // Get the model's reply
-        $reply = $result['choices'][0]['message']['content'];
-
-        // Display model reply in the chat log
-        echo '<div class="model">' . $reply . '</div>';
-      }
-      ?>
-    </div>
+    <div id="chat-log"></div>
     <div id="user-input">
-      <form id="message-form" method="POST">
-        <input type="text" name="message" placeholder="Type your message...">
-        <button type="submit">Send</button>
+      <form id="message-form">
+        <input type="text" id="message-input" placeholder="Type your message...">
+        <button type="submit" id="send-button">Send</button>
       </form>
     </div>
   </div>
+
+  <script>
+    document.getElementById('message-form').addEventListener('submit', sendMessage);
+
+    function sendMessage(event) {
+      event.preventDefault(); // Prevent form submission
+
+      const messageInput = document.getElementById('message-input');
+      const message = messageInput.value;
+
+      // Display user message in the chat log
+      const userMessage = document.createElement('div');
+      userMessage.classList.add('user');
+      userMessage.textContent = message;
+      document.getElementById('chat-log').appendChild(userMessage);
+
+      // Make API call to ChatGPT
+      fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer YOUR_API_KEY' // Replace with your actual API key
+        },
+        body: JSON.stringify({
+          'messages': [{'role': 'system', 'content': 'You are a helpful assistant.'}, {'role': 'user', 'content': message}]
+        })
+      })
+        .then(response => response.json())
+        .then(data => {
+          // Get the model's reply
+          const reply = data.choices[0].message.content;
+
+          // Display model reply in the chat log
+          const modelMessage = document.createElement('div');
+          modelMessage.classList.add('model');
+          modelMessage.textContent = reply;
+          document.getElementById('chat-log').appendChild(modelMessage);
+
+          // Clear the message input
+          messageInput.value = '';
+        });
+    }
+  </script>
 </body>
 </html>
