@@ -34,7 +34,7 @@ class Chatbox {
     let msg1 = ['User', user_input];
     this.messages.push(msg1);
 
-    fetch('http://127.0.0.1:5000/chatbot', {
+    fetch('http://noble-mutuwa.com/chatbot', {
       method: 'POST',
       body: JSON.stringify({ message: user_input }),
       mode: 'cors',
