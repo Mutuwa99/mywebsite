@@ -41,7 +41,7 @@ jobs:
         run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${{ github.workspace }}" ec2-user@50.17.57.13:~/website/
 
       - name: SSH into EC2
-        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/* /var/www/html/"
+        run: ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/html/"
 
   qa_send_notification:
     needs: deploy_to_qa
