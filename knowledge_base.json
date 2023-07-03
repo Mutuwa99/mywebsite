@@ -41,115 +41,80 @@
         ]
       },
       {
-        "tag": "old , age ",
+        "tag": "age",
         "patterns": [
-          "old",
-          "how many years do you have",
-          "age"
+          "how old ",
+          "age",
+          "born  "
         ],
         "responses": [
-          "Noble Mutuwa Is 24yrs old , born in 1999."
+          "Noble Mulaudzi was boren in Aug 1999 , he is 24 yrs"
         ]
       },
       {
-        "tag": "new",
+        "tag": "names",
         "patterns": [
-          "jhjkjhjk"
+          "firstname",
+          "surname",
+          "names",
+          "name"
         ],
         "responses": [
-          "ddd"
+          "Mutuwa Noble Isaya Mulaudzi",
+          "Mutuwa Mulaudzi Noble Isaya "
         ]
       },
       {
-        "tag": "new",
+        "tag": "family",
         "patterns": [
-          "isaya"
+          "mother",
+          "parents",
+          "mom"
         ],
         "responses": [
-          "isay mutuwa"
+          "Mutuwa's mother is a beautiful swati woman called Zanele"
         ]
       },
       {
-        "tag": "new",
+        "tag": "siblings",
         "patterns": [
-          "aaaa"
+          "sister",
+          "sibling",
+          "siblings"
         ],
         "responses": [
-          "venda word"
+          "Mutuwa has got two siblings"
         ]
       },
       {
-        "tag": "new",
+        "tag": "relationship",
         "patterns": [
-          "bonitas"
+          "girlfriend",
+          "single",
+          "maried"
         ],
         "responses": [
-          "bonitas sedd jhhd ddd"
+          "That's a personal question , please ask Mutuwa when you meet him"
         ]
       },
       {
-        "tag": "new",
+        "tag": "technical",
         "patterns": [
-          "jk"
+          "what devops tools is he good in ",
+          " docker",
+          "git ",
+          "aws ",
+          "kurbernetes ",
+          "jenkins ",
+          "git "
         ],
         "responses": [
-          ",tesing the future , jhghj"
-        ]
-      },
-      {
-        "tag": "new",
-        "patterns": [
-          "hhh"
-        ],
-        "responses": [
-          ": What is your name? My name is Chatbot."
-        ]
-      },
-      {
-        "tag": "new",
-        "patterns": [
-          "jhghhghuh"
-        ],
-        "responses": [
-          "jhghuygfghuhg"
-        ]
-      },
-      {
-        "tag": "new",
-        "patterns": [
-          "who is my mother?",
-          "mother?"
-        ],
-        "responses": [
-          "Mulaudzi Elisah"
-        ]
-      },
-      {
-        "tag": "new",
-        "patterns": [
-          "how much do i earn?"
-        ],
-        "responses": [
-          "R200"
-        ]
-      },
-      {
-        "tag": "new",
-        "patterns": [
-          "marital status"
-        ],
-        "responses": [
-          "singe"
-        ]
-      },
-      {
-        "tag": "new",
-        "patterns": [
-          "my mother is"
-        ],
-        "responses": [
-          "Zanele"
+          "Noble is profficient in AWS,git, jenkins, docker ,kubernetes and many more devops tools",
+          "Mutuwa is is a master in AWS,git, jenkins, docker ,kubernetes and many more devops tools",
+          "Noble is very good  in AWS,git, jenkins, docker ,kubernetes and many more devops tools",
+          "Mutuwa is very very in AWS,git, jenkins, docker ,kubernetes and many more devops tools"
         ]
       }
+
     ]
   }
