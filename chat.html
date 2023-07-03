@@ -5,57 +5,10 @@
   <link rel="stylesheet" type="text/css" href="styles.css">
 </head>
 <body>
-  <div id="chat-container">
-    <div id="chat-log"></div>
-    <div id="user-input">
-      <form id="message-form">
-        <input type="text" id="message-input" placeholder="Type your message...">
-        <button type="submit" id="send-button">Send</button>
-      </form>
-    </div>
-  </div>
-
-  <script>
-    document.getElementById('message-form').addEventListener('submit', sendMessage);
-
-    function sendMessage(event) {
-      event.preventDefault(); // Prevent form submission
-
-      const messageInput = document.getElementById('message-input');
-      const message = messageInput.value;
-
-      // Display user message in the chat log
-      const userMessage = document.createElement('div');
-      userMessage.classList.add('user');
-      userMessage.textContent = message;
-      document.getElementById('chat-log').appendChild(userMessage);
-
-      // Make API call to ChatGPT
-      fetch('https://api.openai.com/v1/chat/completions', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer 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' // Replace with your actual API key
-        },
-        body: JSON.stringify({
-          'messages': [{'role': 'system', 'content': 'You are a helpful assistant.'}, {'role': 'user', 'content': message}]
-        })
-      })
-        .then(response => response.json())
-        .then(data => {
-          // Get the model's reply
-          const reply = data.choices[0].message.content;
-
-          // Display model reply in the chat log
-          const modelMessage = document.createElement('div');
-          modelMessage.classList.add('model');
-          modelMessage.textContent = reply;
-          document.getElementById('chat-log').appendChild(modelMessage);
-
-          // Clear the message input
-          messageInput.value = '';
-        });
-    }
-  </script>
+<div class="container">
+  <p>
+    This geature is coming soon
+  </p>
+</div>
 </body>
 </html>
