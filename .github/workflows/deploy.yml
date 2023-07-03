@@ -36,6 +36,8 @@ jobs:
         uses: webfactory/ssh-agent@v0.5.0
         with:
           ssh-private-key: ${{ secrets.SERVER_SSH_PRIVATE_KEY }}
+      - name: check files
+        run: ls -al "${{ github.workspace }}"
 
       - name: Copy files to EC2
         run: scp -r -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null "${{ github.workspace }}/*" ec2-user@50.17.57.13:/var/www/html/
