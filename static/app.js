@@ -46,7 +46,6 @@ class Chatbox {
       .then((r) => {
         let msg2 = ['Sam', r.answer];
         this.messages.push(msg2);
-        console.log(msg2);
         this.updateChatText(chatbox);
         textField.value = '';
       })

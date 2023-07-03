@@ -4,6 +4,22 @@
     padding: 0;
 }
 
+.progress::-webkit-meter-bar {
+    background-color: #ccc !important; /* Set the background color of the meter bar */
+  }
+  
+  progress::-webkit-meter-optimum-value {
+    background-color: #0f0 !important; /* Set the color of the portion representing the optimal range */
+  }
+  
+  .progress::-webkit-meter-suboptimum-value {
+    background-color: #ff0 !important; /* Set the color of the portion representing the suboptimal range */
+  }
+  
+  .progress::-webkit-meter-even-less-good-value {
+    background-color: #f00 !important; /* Set the color of the portion representing values below the suboptimal range */
+  }
+
 body {
     font-family: 'Nunito', sans-serif;
     font-weight: 400;

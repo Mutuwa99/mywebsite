@@ -23,8 +23,9 @@ knowledge_base = load_knowledge_base('knowledge_base.json')
 @app.route('/')
 def index():
     return render_template('base.html')
+
 @app.route('/about-me')
-def index():
+def aboutme():
     return render_template('about.html')
 
 # API endpoint to handle user input and respond
