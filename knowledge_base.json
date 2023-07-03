@@ -1,0 +1,155 @@
+{
+    "intents": [
+      {
+        "tag": "greeting",
+        "patterns": [
+          "Hi",
+          "Hello",
+          "Hey"
+        ],
+        "responses": [
+          "Hello! How can I assist you today?",
+          "Hi there! How can I help you?",
+          "Hey! How can I assist you?"
+        ]
+      },
+      {
+        "tag": "farewell",
+        "patterns": [
+          "Goodbye",
+          "Bye",
+          "See you later"
+        ],
+        "responses": [
+          "Goodbye! Have a great day!",
+          "Bye! Take care!",
+          "See you later! Have a wonderful day!"
+        ]
+      },
+      {
+        "tag": "thanks",
+        "patterns": [
+          "Thank you",
+          "Thanks",
+          "thank ",
+          "Appreciate it"
+        ],
+        "responses": [
+          "You're welcome! Happy to help.",
+          "No problem! Let me know if there's anything else I can assist you with.",
+          "You're welcome! Have a fantastic day!"
+        ]
+      },
+      {
+        "tag": "old , age ",
+        "patterns": [
+          "old",
+          "how many years do you have",
+          "age"
+        ],
+        "responses": [
+          "Noble Mutuwa Is 24yrs old , born in 1999."
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "jhjkjhjk"
+        ],
+        "responses": [
+          "ddd"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "isaya"
+        ],
+        "responses": [
+          "isay mutuwa"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "aaaa"
+        ],
+        "responses": [
+          "venda word"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "bonitas"
+        ],
+        "responses": [
+          "bonitas sedd jhhd ddd"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "jk"
+        ],
+        "responses": [
+          ",tesing the future , jhghj"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "hhh"
+        ],
+        "responses": [
+          ": What is your name? My name is Chatbot."
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "jhghhghuh"
+        ],
+        "responses": [
+          "jhghuygfghuhg"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "who is my mother?",
+          "mother?"
+        ],
+        "responses": [
+          "Mulaudzi Elisah"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "how much do i earn?"
+        ],
+        "responses": [
+          "R200"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "marital status"
+        ],
+        "responses": [
+          "singe"
+        ]
+      },
+      {
+        "tag": "new",
+        "patterns": [
+          "my mother is"
+        ],
+        "responses": [
+          "Zanele"
+        ]
+      }
+    ]
+  }

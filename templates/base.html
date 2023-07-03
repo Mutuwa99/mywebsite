@@ -14,22 +14,28 @@
         <title>Noble-Mutuwa-Mulaudzi</title>
 
         <!-- BOOTSTRAP -->
-        <link href="assets/libs/bootstrap/css/bootstrap.min62d0.css?ver=4.5.3" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link href="{{ url_for('static', filename='/assets/libs/bootstrap/css/bootstrap.min62d0.css?ver=4.5.3') }}" rel="stylesheet">
 
         <!-- REVOLUTION SLIDER MAIN STYLESHEET -->
-        <link rel="stylesheet" href="css/revolution/settings.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/revolution/settings.css') }}">
 
         <!-- REVOLUTION SLIDER LAYERS AND NAVIGATION STYLES -->
-        <link rel="stylesheet" href="css/revolution/layers.css">
-        <link rel="stylesheet" href="css/revolution/navigation.css">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/revolution/layers.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='/css/revolution/navigation.css') }}">
 
         <!-- CUSTOM STYLES -->
-        <link href="css/style.css" rel="stylesheet">
+        <link href="{{ url_for('static', filename='/css/style.css') }}" rel="stylesheet">
 
         <!-- THEME SKINS -->
-        <link id="skin" href="css/theme-colors/orange.css" rel="stylesheet">
-        <link href="js/style-switcher/css/style-switcher.css" rel="stylesheet">
-        <link href="css/line-icons/line-icons.css" rel="stylesheet">
+        <link id="skin" href="{{ url_for('static', filename='/css/theme-colors/orange.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='/js/style-switcher/css/style-switcher.css') }}" rel="stylesheet">
+        <link href="{{ url_for('static', filename='/css/line-icons/line-icons.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+        <!-- Include Bootstrap JS (optional) -->
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </head>
 
     <body>
@@ -79,7 +85,7 @@
                 <!-- START - Navbar Brand -->
                 <div class="navbar-header">
                     <a class="navbar-brand logo" href="index.html">
-                        <img src="img/logo-white2.png" alt="Logo" />
+                        <img src="{{ url_for('static', filename='img/logo-white2.png') }}" alt="Logo" />
                     </a>
                 </div>
                 <!-- END - Navbar Brand -->
@@ -124,7 +130,7 @@
                 <ul>
                     <li data-transition="slideremovedown">
                         <!-- MAIN IMAGE -->
-                        <img src="img/isaya.jpg" alt="" width="1920" height="600">
+                        <img src="{{ url_for('static', filename='img/isaya.jpg') }}" alt="" width="1920" height="600">
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption captionHeadline1" id="slide-397-layer-1" data-x="center" data-y="top" data-voffset="152" data-width="['auto','auto','auto','auto']" data-height="['auto','auto','auto','auto']" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 8; white-space: nowrap;"><img src="img/border_top.png" alt=""></div>
                         <div class="tp-caption captionHeadline1 highlight primary" id="slide-397-layer-2" data-x="center" data-y="top" data-voffset="200" data-width="['auto','auto','auto','auto']" data-height="['auto','auto','auto','auto']" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-start="500" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">DevOps Engineer</div>
@@ -137,7 +143,7 @@
 
                     <li data-transition="slideremovedown">
                         <!-- MAIN IMAGE -->
-                        <img src="img/hac.jpg" alt="" width="1920" height="600">
+                        <img src="{{ url_for('static', filename='img/hac.jpg') }}" alt="" width="1920" height="600">
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption captionHeadline1" id="slide-397-layer-6" data-x="center" data-y="top" data-voffset="152" data-width="['auto','auto','auto','auto']" data-height="['auto','auto','auto','auto']" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 8; white-space: nowrap;"><img src="img/border_top.png" alt=""></div>
                         <div class="tp-caption captionHeadline1 highlight purple" id="slide-397-layer-7" data-x="center" data-y="top" data-voffset="200" data-width="['auto','auto','auto','auto']" data-height="['auto','auto','auto','auto']" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">Software Developer</div>
@@ -150,7 +156,7 @@
 
                     <li data-transition="slideremovedown">
                         <!-- MAIN IMAGE -->
-                        <img src="img/hac3.jpg" alt="" width="1920" height="600">
+                        <img src="{{ url_for('static', filename='img/hac3.jpg') }}" alt="" width="1920" height="600">
                         <!-- LAYER NR. 1 -->
                         <div class="tp-caption captionHeadline1" id="slide-397-layer-11" data-x="center" data-y="top" data-voffset="152" data-width="['auto','auto','auto','auto']" data-height="['auto','auto','auto','auto']" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 8; white-space: nowrap;"><img src="img/border_top.png" alt=""></div>
                         <div class="tp-caption captionHeadline1 highlight green" id="slide-397-layer-12" data-x="center" data-y="top" data-voffset="200" data-width="['auto','auto','auto','auto']" data-height="['auto','auto','auto','auto']" data-transform_idle="o:1;" data-transform_in="x:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-transform_out="y:[-100%];z:0;rX:0deg;rY:0;rZ:0;sX:1;sY:1;skX:0;skY:0;s:1500;e:Power3.easeInOut;" data-mask_in="x:0px;y:0px;s:inherit;e:inherit;" data-start="1000" data-splitin="none" data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">Cloud Engineer</div>
@@ -179,6 +185,43 @@
             </div>
         </div>
         <!-- END - CTA Primary -->
+
+        <div class="container" id="">
+            <div class="chatbox">
+                <div class="chatbox__support">
+                    <div class="chatbox__header">
+                        <div class="chatbox__image--header">
+                            <img src="https://img.icons8.com/color/48/000000/circled-user-female-skin-type-5--v1.png" alt="image">
+                        </div>
+                        <div class="chatbox__content--header">
+                            <h4 class="chatbox__heading--header">Noble's support</h4>
+                            <p class="chatbox__description--header">Hi. My name is Mutuwa. How can I help you?</p>
+                        </div>
+                    </div>
+                    <div class="chatbox__messages">
+                        <div></div>
+                    </div>
+                    <div class="chatbox__footer">
+                        <input id="user-input" type="text" placeholder="Write a message...">
+                        <button class="chatbox__send--footer send__button">Send</button>
+                    </div>
+                </div>
+                <div class="chatbox__button">
+                    <button><img src="{{ url_for('static', filename='images/chatbox-icon.svg') }}" /></button>
+                </div>
+            </div>
+        </div>
+        <style>
+            @media screen and (max-width: 768px) {
+                .chatbox {
+                width: 100% !important;
+                height: 100% !important;
+                bottom: 0 !important;
+                right: -10px !important;
+                top: 150px;
+            }
+        }
+        </style>
 
         <!-- START - Contain Wrapp -->
           <!-- START - Icon Column -->
@@ -235,7 +278,7 @@
                         <h5>My skills</h5>
                         <div id="progress-bar">
                             <div class="progress progress-primary progress-sm">
-                                <div class="progress-bar" role="progressbar" data-value-progress="100">
+                                <div class="progress-bar" role="progressbar"  value="50" max="100" data-value-progress="100">
                                     <span class="value-progress">AWS</span>
                                 </div>
                             </div>
@@ -287,7 +330,7 @@
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <img src="img/hac22.png" class="img-fluid" alt="" />
+                        <img src="{{ url_for('static', filename='img/hac22.png') }}" class="img-fluid" alt="" />
                     </div>
                 </div>
             </div>
@@ -554,22 +597,18 @@
         </a>
         <!-- END - Back To Top -->
 
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <!-- jQuery JS -->
-        <script src="assets/libs/jquery/jquery.min3d36.js?ver=3.3.1"></script>
+        <script src="{{ url_for('static', filename='/assets/libs/jquery/jquery.min3d36.js?ver=3.3.1') }}"></script>
         <!-- Popper JS -->
-        <script src="assets/libs/popper/popper.min34dd.js?ver=1.16.1"></script>
+        <script src="{{ url_for('static', filename='/assets/libs/popper/popper.min34dd.js?ver=1.16.1') }}"></script>
         <!-- Bootstrap JS -->
-        <script src="assets/libs/bootstrap/js/bootstrap.min62d0.js?ver=4.5.3"></script>
+        <script src="{{ url_for('static', filename='/assets/libs/bootstrap/js/bootstrap.min62d0.js?ver=4.5.3') }}"></script>
         <!-- jQuery Easing -->
-        <script src="js/jquery.easing-1.3.min.js"></script>
+        <script src="{{ url_for('static', filename='/js/jquery.easing-1.3.min.js') }}"></script>
         
-        <!-- REVOLUTION SLIDER -->
-        <script src="js/revolution/js/jquery.themepunch.tools.min.js"></script>
-        <script src="js/revolution/js/jquery.themepunch.revolution.min.js"></script>
-        <script src='js/revolution/revolution-addons/slicey/js/revolution.addon.slicey.min8a54.js?ver=1.0.0'></script>
-        <script src="js/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-        <script src="js/revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-        <script src="js/revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+
         <script>
             $(document).ready(function() {
                 if ($("#rev-slider").revolution != undefined) {
@@ -630,28 +669,33 @@
         </script>
 
         <!-- Parallax -->
-        <script src="js/parallax/jquery.parallax-1.1.3.js"></script>
-        <script src="js/parallax/setting.js"></script>
+        <script src="{{ url_for('static', filename='/js/parallax/jquery.parallax-1.1.3.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/parallax/setting.js') }}"></script>
 
         <!-- Owl Carousel -->
-        <script src="js/owlcarousel/js/owl.carousel.min.js"></script>
-        <script src="js/owlcarousel/js/setting.js"></script>
+        <script src="{{ url_for('static', filename='/js/owlcarousel/js/owl.carousel.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/owlcarousel/js/setting.js') }}"></script>
 
         <!-- PrettyPhoto -->
-        <script src="js/prettyPhoto/js/jquery.prettyPhoto.js"></script>
-        <script src="js/prettyPhoto/js/setting.js"></script>
+        <script src="{{ url_for('static', filename='/js/prettyPhoto/js/jquery.prettyPhoto.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/prettyPhoto/js/setting.js') }}"></script>
 
         <!-- Masonry -->
-        <script src="js/masonry/js/masonry.min.js"></script>
-        <script src="js/masonry/js/masonry.filter.js"></script>
-        <script src="js/masonry/js/setting.js"></script>
+        <script src="{{ url_for('static', filename='/js/masonry/js/masonry.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/masonry/js/masonry.filter.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/masonry/js/setting.js') }}"></script>
 
-        <!-- Custom JavaScript for this theme -->
-        <script src="js/custom.js"></script>
-
-        <!-- Theme option-->
-        <script src="js/style-switcher/js/style-switcher.js"></script>
+        <!-- REVOLUTION SLIDER -->
+        <script src="{{ url_for('static', filename='/js/revolution/js/jquery.themepunch.tools.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/revolution/js/jquery.themepunch.revolution.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/revolution/revolution-addons/slicey/js/revolution.addon.slicey.min8a54.js?ver=1.0.0') }}"></script>
+        <script src="{{ url_for('static', filename='/js/revolution/js/extensions/revolution.extension.slideanims.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/revolution/js/extensions/revolution.extension.layeranimation.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='/js/revolution/js/extensions/revolution.extension.navigation.min.js') }}"></script>
+        <script>
+            $SCRIPT_ROOT = "{{ request.script_root|tojson }}"
+        </script>
+        <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
     </body>
 
-<!-- Mirrored from ecada.encodeslife.com/v2.1/template/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 15 Mar 2023 11:55:49 GMT -->
 </html>
