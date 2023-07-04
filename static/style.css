@@ -28,7 +28,7 @@ body {
 }
 
 *, html {
-    --primaryGradient: linear-gradient(93.12deg, #ba0d35 0.52%, #9C1DE7 100%);
+    --primaryGradient: linear-gradient(93.12deg, #ba0d35 0.52%, #ba0d35 100%);
     --secondaryGradient: linear-gradient(268.91deg, #ba0d35 -2.14%, #9C1DE7 99.69%);
     --primaryBoxShadow: 0px 10px 15px rgba(0, 0, 0, 0.1);
     --secondaryBoxShadow: 0px -10px 15px rgba(0, 0, 0, 0.1);
@@ -57,6 +57,7 @@ body {
     z-index: -123456;
     opacity: 0;
     transition: all .5s ease-in-out;
+    
 }
 
 /* CONTENT ISOPEN */
@@ -94,6 +95,7 @@ body {
     display: flex;
     overflow-y: scroll;
     flex-direction: column-reverse;
+
 }
 
 .messages__item {
@@ -118,6 +120,11 @@ body {
 
 .chatbox__support {
     background-color: lightgrey;;
+        background-color: #f8f9fa;
+    background-image: url('https://th.bing.com/th/id/R.cdc254e1c10d1149158e9035dbf52b55?rik=giW7sa4i%2fJQfLg&pid=ImgRaw&r=0');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     height: 450px;
     width: 350px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
