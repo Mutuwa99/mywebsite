@@ -7,7 +7,7 @@ on:
       - production 
 
 jobs:
-  manual_approval:
+  checkout_mycode:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -21,7 +21,7 @@ jobs:
 
 
   deploy_to_qa:
-    needs: manual_approval
+    needs: checkout_mycode
     if: github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
     environment: 
