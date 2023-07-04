@@ -45,7 +45,7 @@
         "patterns": [
           "how old ",
           "age",
-          "born  "
+          "born"
         ],
         "responses": [
           "Noble Mulaudzi was boren in Aug 1999 , he is 24 yrs"
@@ -101,12 +101,12 @@
         "tag": "technical",
         "patterns": [
           "what devops tools is he good in ",
-          " docker",
-          "git ",
-          "aws ",
+          "docker",
+          "git",
+          "aws",
           "kurbernetes ",
           "jenkins ",
-          "git "
+          "git"
         ],
         "responses": [
           "Noble is profficient in AWS,git, jenkins, docker ,kubernetes and many more devops tools",
