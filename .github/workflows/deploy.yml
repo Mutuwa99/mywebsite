@@ -42,7 +42,7 @@ jobs:
 
       - name: SSH into EC2
         run: | 
-          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/html/"
+          ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ec2-user@50.17.57.13 "sudo cp -r ~/website/mywebsite/* /var/www/website1.example.com/"
 
   qa_send_notification:
     needs: deploy_to_qa
